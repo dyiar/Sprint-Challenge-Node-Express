@@ -45,7 +45,6 @@ router.get("/:id", (req, res) => {
 
 router.post("/create", (req, res) => {
   const actionInfo = req.body;
-  console.log(actionInfo)
 
   actiondb
     .insert(actionInfo)
@@ -56,19 +55,15 @@ router.post("/create", (req, res) => {
           res.status(201).send({ action });
         })
         .catch(() =>
-          res
-            .status(400)
-            .send({
-              errorMessage: "Please provide information in the correct format."
-            })
+          res.status(400).send({
+            errorMessage: "Please provide information in the correct format."
+          })
         );
     })
     .catch(() =>
-      res
-        .status(500)
-        .send({
-          error: "There was an error while saving the action to the database."
-        })
+      res.status(500).send({
+        error: "There was an error while saving the action to the database."
+      })
     );
 });
 
@@ -89,11 +84,17 @@ router.put("/:id/update", checkIdExists, (req, res) => {
     );
 });
 
-router.delete('/:id/delete', checkIdExists, (req, res) => {
-    const id = req.params.id;
+router.delete("/:id/delete", checkIdExists, (req, res) => {
+  const id = req.params.id;
 
-    actiondb.remove(id).then(() => res.status(200).send({ response: "One record has been deleted." }))
-    .catch(() => res.status(500).send({ error: "The action could not be deleted." }))
-})
+  actiondb
+    .remove(id)
+    .then(() =>
+      res.status(200).send({ response: "One record has been deleted." })
+    )
+    .catch(() =>
+      res.status(500).send({ error: "The action could not be deleted." })
+    );
+});
 
 module.exports = router;

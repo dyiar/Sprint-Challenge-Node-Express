@@ -55,7 +55,6 @@ router.get("/:id/actions", checkIdExists, (req, res) => {
 
 router.post("/create", (req, res) => {
   const projectInfo = req.body;
-  console.log(req.body);
 
   projectmodel
     .insert(projectInfo)
@@ -63,7 +62,7 @@ router.post("/create", (req, res) => {
       projectmodel
         .get(result.id)
         .then(project => {
-          res.status(201).send({ post });
+          res.status(201).send({ project });
         })
         .catch(() =>
           res.status(400).send({
@@ -76,11 +75,10 @@ router.post("/create", (req, res) => {
         error: "There was an error saving the project to the database."
       })
     );
-}); //currently has problems. req.body is undefined.
+});
 
 router.put("/:id/update", checkIdExists, (req, res) => {
   const id = req.params.id;
-  const projectChange = req.body;
 
   projectmodel
     .update(id, projectChange)
@@ -93,14 +91,16 @@ router.put("/:id/update", checkIdExists, (req, res) => {
     .catch(() =>
       res.status(500).send({ error: "The post could not be modified." })
     );
-}); // req.body is still undefined here.
+});
 
 router.delete("/:id/delete", checkIdExists, (req, res) => {
   const id = req.params.id;
 
   projectmodel
     .remove(id)
-    .then(() => res.status(200).send({ deleted: "One project has been deleted." }))
+    .then(() =>
+      res.status(200).send({ deleted: "One project has been deleted." })
+    )
     .catch(() =>
       res.status(500).send({ error: "The post could not be deleted." })
     );
