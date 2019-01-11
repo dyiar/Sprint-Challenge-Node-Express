@@ -26,13 +26,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+    Express is a framework that makes it easier to create web applications and services. Because it is simple and unopinionated, we need to make more decisions when creating applications.
+
 - [ ] Describe Middleware?
+
+    Middleware are functions that have access to the request and respons objects, and the next function. They can execute code, make changes to the req/res objects, and call the next middleware in the stack.
 
 - [ ] Describe a Resource?
 
+    The information that we are helping the client get connected to(?)
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+    A response which can include a status of (200) and the information that the client was looking for.
+
 - [ ] How can we partition our application into sub-applications?
+
+    We can use Routes to keep the server only doing server things. This helps keep files clean and organized.
 
 ## Project Setup
 
